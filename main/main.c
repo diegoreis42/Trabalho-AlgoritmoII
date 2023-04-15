@@ -14,7 +14,8 @@ int main (int argc, char *argv[])
   geraArquivo(nomearquivo, qtd, seed);
 
   arr = leArquivo(nomearquivo);
-  arr = countingSort(arr, qtd);
+  imprimeVet(arr, qtd);
+  countingSort(arr, qtd, 100);
 
   imprimeVet(arr, qtd);
   return 0;
