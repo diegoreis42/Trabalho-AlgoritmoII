@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "libs.h"
+#include "countingSort.h"
 
 int main (int argc, char *argv[])
 {

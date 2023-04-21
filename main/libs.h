@@ -8,5 +8,4 @@ void imprimeVet(int *vet, int tam);
 
 void liberaVetor(int *vet);
 
-void countingSort(int arr[], int n, int k);
 

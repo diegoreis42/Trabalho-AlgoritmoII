@@ -16,7 +16,7 @@ if(fptr == NULL)
 fprintf(fptr, "%d\n", qtd);
 
 for(int i = 0; i < qtd; i++){
-  fprintf(fptr, "%d\n", rand() % qtd + 1);
+  fprintf(fptr, "%d\n", rand() % 100);
 }
 
 fclose(fptr);
