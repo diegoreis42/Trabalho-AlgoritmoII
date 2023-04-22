@@ -63,6 +63,6 @@ int main()
 
     for (i = 0; i < qtd; i++)
         printf("%d ", vet[i]);
-    
+    printf("\n");
     return 0;
 }
