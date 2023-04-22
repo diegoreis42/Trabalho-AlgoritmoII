@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 //calcula a mediana para tornar o código mais eficiente, levando a mediana para o meio
 int mediana(int a, int b, int c)
 {
@@ -12,7 +13,7 @@ int mediana(int a, int b, int c)
     }
 }
 
-void quick(int *v, int esq, int dir, int tam)
+void quick(int *v, int esq, int dir, int tam, int *trc, int *cmp)
 {
     //a condição de parada é o tamanho ser um, já que já está ordenado
     if(tam > 1)
@@ -26,8 +27,16 @@ void quick(int *v, int esq, int dir, int tam)
 
         while(i <= j) //os marcadores não podem se inverter, i deve ficar antes de j
         {
-            while (v[i] < pv) i++; //acha o valor de indice i que deve ter seu lado trocado em relaçãoo ao pivo
-                while (v[j] > pv) j--; //faz o mesmo com j
+            while (v[i] < pv)//acha o valor de indice i que deve ter seu lado trocado em relaçãoo ao pivo
+                {
+                    i++;    
+                    *cmp += 1;
+                } 
+                while (v[j] > pv)//faz o mesmo com j
+                {
+                    j--;
+                    *cmp += 1;
+                }
                     if(i <= j) //se as condições do loop mais externo ainda forem cumpridas
                     {
                         aux = v[i];
@@ -35,12 +44,13 @@ void quick(int *v, int esq, int dir, int tam)
                         v[j] = aux;
                         i++;
                         j--;
+                        *trc += 1;
                         //troca os dois elementos de lugar e passa para o valor do proximo indice
                     }
         }
 
-        quick(v,esq,j, j - esq + 1); //chama a função recursivamente para a direita
-        quick(v,i, dir, dir - i + 1); //chama a função recursivamente para a esquerda
+        quick(v,esq,j, j - esq + 1, trc, cmp); //chama a função recursivamente para a direita
+        quick(v,i, dir, dir - i + 1, trc, cmp); //chama a função recursivamente para a esquerda
     }
 }
 
@@ -49,6 +59,8 @@ int main()
     FILE *arq;
     int *vet;
     int i, qtd;
+    int trc, cmp; // trocas e comparações
+    trc = cmp = 0;
     char nomeArquivo[] = "teste.txt";
 
     arq = fopen(nomeArquivo, "r");
@@ -62,10 +74,12 @@ int main()
     printf("\n");
     fclose(arq);
 
-    quick(vet, 0, qtd-1, qtd);
+    quick(vet, 0, qtd-1, qtd, &trc, &cmp);
+    printf("Número de trocas: %d \nNúmero de comparações: %d", trc, cmp);
+    printf("\n");
 
     for (i = 0; i < qtd; i++)
         printf("%d ", vet[i]);
-    printf("\n");
+    
     return 0;
 }
