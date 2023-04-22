@@ -7,35 +7,55 @@ struct tVet{
     int tam;
 };
 
-void merge(int *v, int inicio, int meio, int fim){
-    int marcadorV1=inicio; // controla as posições do vetor lógico 1
-    int marcadorV2=meio; // controla as posições do vetor lógico 2
-    int vetAux[(fim-inicio)+1];
-    int i=0; // contador do vetor auxiliar
-    int k; // contador de vet para cópia final
-    while(marcadorV1<=meio&&marcadorV2<=fim){
-        if(v[marcadorV1]<v[marcadorV2]){
-            vetAux[i]=v[marcadorV1];
-            marcadorV1++;
-        }else{
-            vetAux[i]=v[marcadorV2];
-            marcadorV2++;
-        }
-        i++;
+void mergesort(int *v, int inicio, int fim, int *trc, int *cmp)
+{
+    if (inicio < fim)
+    {
+        int meio = (inicio + fim) / 2;
+        mergesort(v, inicio, meio, trc, cmp);
+        mergesort(v, meio + 1, fim, trc, cmp);
+        merge(v, inicio, meio, fim,trc,cmp);
     }
-    // Copia o resto do vetor 1 ou o resto do vetor 2 para o vetor auxiliar
-    // Copia o vetor auxiliar para o vetor original
 }
-//Função que faz a fusão de dois vetores pré-ordenados e os copia para o vetor original
 
-void mergesort(int *v, int inicio, int fim){
-    int meio;
-    if(inicio<fim){
-        meio=(inicio+fim)/2;
-        mergesort(v,inicio,meio);
-        mergesort(v,meio+1,fim);
-        merge(v,inicio,meio,fim);
+void merge(int *v, int inicio, int meio, int fim, int *trc, int *cmp)
+{
+    int tam = fim - inicio + 1;
+    int *vetAux = (int *) malloc(tam * sizeof(int));
+    int i,j,k;
+    for (i = inicio; i <= fim; i++)
+        vetAux[i - inicio] = v[i];
+    i = 0;
+    j = meio - inicio + 1;
+    k = inicio;
+    while (i <= meio - inicio && j <= fim - inicio)
+    {
+        cmp += 1;
+        if (vetAux[i] <= vetAux[j])
+        {
+            v[k] = vetAux[i];
+            i++;
+        }
+        else
+        {
+            v[k] = vetAux[j];
+            j++;
+        }
+        k++;
     }
+    while (i <= meio - inicio)
+    {
+        v[k] = vetAux[i];
+        i++;
+        k++;
+    }
+    while (j <= fim - inicio)
+    {
+        v[k] = vetAux[j];
+        j++;
+        k++;
+    }
+    free(vetAux);
 }
 //Função recursiva que executa a fase de divisão do algoritmo mergesort
 

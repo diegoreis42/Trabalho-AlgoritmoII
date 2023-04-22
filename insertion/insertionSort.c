@@ -6,7 +6,7 @@
 
 int *randVector(int tamanho);
 
-int *insertionsort(int *v, int tamanho);
+int *insertionsort(int *v, int tamanho, int *trc, int *cmp);
 
 int main(){
     int *v=randVector(Tamanho);
@@ -16,7 +16,7 @@ int main(){
     for(int i=0;i<Tamanho;i++)printf("%d ", v[i]);
 }
 
-int *insertionsort(int *v, int tamanho){
+int *insertionsort(int *v, int tamanho, int *trc, int *cmp){
     int marcador;
     int aux;
     int pos;
@@ -27,6 +27,7 @@ int *insertionsort(int *v, int tamanho){
         aux=v[marcador];
         while(aux<v[pos]&&pos>=0){
         // até que o auxiliar supere 
+            cmp += 1;
             v[pos+1]=v[pos];
             pos=pos-1;
         }
@@ -56,12 +57,4 @@ int *randVector(int tamanho){
         v[j]=i;
     }
     return v;
-}
-
-void enrolar2(int n){
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-        print("oi\n");
-        }
-    }
 }
