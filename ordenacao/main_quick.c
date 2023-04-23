@@ -12,9 +12,12 @@ int main(){
     int trc;
     int cmp;
     trc = cmp = 0;
-    FILE *f = fopen("quick_stats.txt", "a+");
-    FILE *m = fopen("merge_stats.txt", "a+");
+    FILE *f = fopen("../stats/quick_stats.txt", "a+");
+    if(f == NULL)
+      return -1;
 
+printf("QuickSort\n-------------------\n");
+// executando quick para todos os arquivos de rand_files
     for(int i = 0; i < 5; i++){
       int *v = leArquivo(arq[i], &Tamanho);
       fprintf(f, "%d elementos\n", (int) pow(10, (2 + i)));
@@ -24,17 +27,7 @@ int main(){
       trc = cmp = 0;
     }
 
-    for(int i = 0; i < 5; i++){
-      int *v = leArquivo(arq[i], &Tamanho);
-      mergesort(v,0, pow(10, (2 + i)),&trc, &cmp);
-      fprintf(m, "%d elementos\n", (int) pow(10, (2 + i)));
-      fprintf(m,"Trocas: %d\n", trc);
-      fprintf(m, "Comparações: %d\n", cmp);
-      trc = cmp = 0;
-
-    }
 
 fclose(f);
-fclose(m);
 return 0;
 }

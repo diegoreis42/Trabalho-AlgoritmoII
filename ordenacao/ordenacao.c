@@ -180,3 +180,20 @@ int *randVector(int tamanho){
     }
     return v;
 }
+
+
+int imprimeArquivo(char *nomeSaida, int qtd, int *vet){
+
+  FILE *fptr;
+
+  fptr = fopen(nomeSaida, "w");
+  if(fptr == NULL)
+    return -1;
+
+  for(int i = 0; i < qtd; i++){
+    fprintf(fptr, "%d\n", vet[i]);
+  }
+
+  fclose(fptr);
+return 1;
+}

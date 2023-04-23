@@ -10,3 +10,5 @@ void mergesort(int *v, int inicio, int fim, int *trc, int *cmp);
 void merge(int *v, int inicio, int meio, int fim, int *trc, int *cmp);
 
 void quick(int *v, int esq, int dir, int tam, int *trc, int *cmp);
+
+int imprimeArquivo(char *nomeSaida, int qtd, int *vet);
