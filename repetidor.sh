@@ -1,8 +1,7 @@
 #!/bin/bash
-
-for i in {1..30}
+cd ordenacao
+for i in {1..10}
 do
-  gcc -o programa quick_sort.c  # compila o código em C, gerando um executável diferente a cada iteração
-  ./programa  # executa o programa recém-compilado
+  g++ main.c ordenacao.c -o programa
   time ./programa
 done
