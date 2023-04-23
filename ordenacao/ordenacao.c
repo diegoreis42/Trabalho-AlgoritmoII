@@ -3,6 +3,52 @@
 #include <time.h>
 #include "ordenacao.h"
 
+int *leArquivo(char *nomeArquivo, int *Tamanho) {
+    FILE *arq;
+    int *vet = NULL; // Inicialmente, o vetor está vazio
+    int num, i = 0;
+
+    arq = fopen(nomeArquivo, "r");
+    if (arq == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return NULL;
+    }
+
+    // Lê números do arquivo um a um e aloca espaço dinamicamente
+    while (fscanf(arq, "%d", &num) == 1) {
+        vet = (int*) realloc(vet, (i+1) * sizeof(int));
+        vet[i] = num;
+        i++;
+    }
+
+    fclose(arq);
+
+    if (i == 0) { // Se não foi lido nenhum número, retorna NULL
+        free(vet);
+        return NULL;
+    }
+
+    // Retorna o tamanho do vetor e o vetor alocado dinamicamente
+    *Tamanho = i;
+    return vet;
+}
+
+int imprimeArquivo(char *nomeSaida, int qtd, int *vet){
+
+  FILE *fptr;
+
+  fptr = fopen(nomeSaida, "w");
+  if(fptr == NULL)
+    return -1;
+
+  for(int i = 0; i < qtd; i++){
+    fprintf(fptr, "%d\n", vet[i]);
+  }
+
+  fclose(fptr);
+return 1;
+}
+
 int *insertionsort(int *v, int tamanho, int *trc, int *cmp){
     int marcador;
     int aux;
@@ -128,36 +174,6 @@ void quick(int *v, int esq, int dir, int tam, int *trc, int *cmp)
     }
 }
 
-int *leArquivo(char *nomeArquivo, int *Tamanho) {
-    FILE *arq;
-    int *vet = NULL; // Inicialmente, o vetor está vazio
-    int num, i = 0;
-
-    arq = fopen(nomeArquivo, "r");
-    if (arq == NULL) {
-        printf("Erro ao abrir o arquivo.\n");
-        return NULL;
-    }
-
-    // Lê números do arquivo um a um e aloca espaço dinamicamente
-    while (fscanf(arq, "%d", &num) == 1) {
-        vet = (int*) realloc(vet, (i+1) * sizeof(int));
-        vet[i] = num;
-        i++;
-    }
-
-    fclose(arq);
-
-    if (i == 0) { // Se não foi lido nenhum número, retorna NULL
-        free(vet);
-        return NULL;
-    }
-
-    // Retorna o tamanho do vetor e o vetor alocado dinamicamente
-    *Tamanho = i;
-    return vet;
-}
-
 int *randVector(int tamanho){
     int j;
     srand(time(NULL));
@@ -182,18 +198,45 @@ int *randVector(int tamanho){
 }
 
 
-int imprimeArquivo(char *nomeSaida, int qtd, int *vet){
 
-  FILE *fptr;
+void countSort(int arr[], int n, int *trc, int *cmp){
+    int i, j, max = arr[0], *count_arr, *sorted_arr;
 
-  fptr = fopen(nomeSaida, "w");
-  if(fptr == NULL)
-    return -1;
+    // acha o maior elemento do vetor
+    for (i = 1; i < n; i++) {
+        cmp += 1;
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
 
-  for(int i = 0; i < qtd; i++){
-    fprintf(fptr, "%d\n", vet[i]);
-  }
 
-  fclose(fptr);
-return 1;
+    count_arr = (int *)calloc(max + 1, sizeof(int));
+    sorted_arr = (int *)malloc(n * sizeof(int));
+
+    // guarda a quantidade de cada elemento
+    for (i = 0; i < n; i++) {
+        count_arr[arr[i]]++;
+    }
+
+    // acha a posiçao correta de cada elemento
+    for (i = 1; i <= max; i++) {
+        count_arr[i] += count_arr[i-1];
+    }
+
+    // Cria o array ordenado
+    for (i = n-1; i >= 0; i--) {
+        trc += 1;        
+        sorted_arr[count_arr[arr[i]]-1] = arr[i];
+        count_arr[arr[i]]--;
+    }
+
+    // Copia o array ordenado para o vetor original
+    for (i = 0; i < n; i++) {
+        arr[i] = sorted_arr[i];
+    }
+
+
+    free(count_arr);
+    free(sorted_arr);
 }
