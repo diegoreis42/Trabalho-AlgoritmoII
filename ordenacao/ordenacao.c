@@ -14,7 +14,7 @@ int *insertionsort(int *v, int tamanho, int *trc, int *cmp){
         aux=v[marcador];
         while(aux<v[pos]&&pos>=0){
         // até que o auxiliar supere 
-            cmp += 1;
+            *cmp += 1;
             v[pos+1]=v[pos];
             pos=pos-1;
         }
@@ -46,7 +46,7 @@ void merge(int *v, int inicio, int meio, int fim, int *trc, int *cmp)
     k = inicio;
     while (i <= meio - inicio && j <= fim - inicio)
     {
-        cmp += 1;
+        *cmp += 1;
         if (vetAux[i] <= vetAux[j])
         {
             v[k] = vetAux[i];
@@ -61,12 +61,14 @@ void merge(int *v, int inicio, int meio, int fim, int *trc, int *cmp)
     }
     while (i <= meio - inicio)
     {
+      *trc += 1;
         v[k] = vetAux[i];
         i++;
         k++;
     }
     while (j <= fim - inicio)
     {
+      *trc += 1;
         v[k] = vetAux[j];
         j++;
         k++;
