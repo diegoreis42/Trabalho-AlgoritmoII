@@ -40,3 +40,16 @@ void countSort(int arr[], int n) {
     free(count_arr);
     free(sorted_arr);
 }
+
+int main (int argc, char *argv[])
+{
+  int v[5] = {5,3,3,2,1};
+  countSort(v, 5);
+
+  for(int i = 0; i < 5; i++){
+    printf("%d ", v[i]);
+  }
+  printf("\n");
+
+  return 0;
+}
