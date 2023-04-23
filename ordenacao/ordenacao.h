@@ -1,5 +1,7 @@
 
-int *randVector(int tamanho);
+//int *randVector(int tamanho);
+int *leArquivo(char *nomeArquivo, int *Tamanho);
+
 int mediana(int a, int b, int c);
 
 int *insertionsort(int *v, int tamanho, int *trc, int *cmp);

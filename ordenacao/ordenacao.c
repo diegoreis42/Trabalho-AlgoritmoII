@@ -126,6 +126,35 @@ void quick(int *v, int esq, int dir, int tam, int *trc, int *cmp)
     }
 }
 
+int *leArquivo(char *nomeArquivo, int *Tamanho) {
+    FILE *arq;
+    int *vet = NULL; // Inicialmente, o vetor está vazio
+    int num, i = 0;
+
+    arq = fopen(nomeArquivo, "r");
+    if (arq == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return NULL;
+    }
+
+    // Lê números do arquivo um a um e aloca espaço dinamicamente
+    while (fscanf(arq, "%d", &num) == 1) {
+        vet = (int*) realloc(vet, (i+1) * sizeof(int));
+        vet[i] = num;
+        i++;
+    }
+
+    fclose(arq);
+
+    if (i == 0) { // Se não foi lido nenhum número, retorna NULL
+        free(vet);
+        return NULL;
+    }
+
+    // Retorna o tamanho do vetor e o vetor alocado dinamicamente
+    *Tamanho = i;
+    return vet;
+}
 
 int *randVector(int tamanho){
     int j;
