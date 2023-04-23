@@ -5,6 +5,11 @@
 #include "ordenacao.h"
 
 
+/*
+ * O programa itera por todos os arquivos de rand_files
+ * executando seu respectivo algoritmo de ordenaçao e salva
+ * os vetores ordenado em vetoresOrdenados/nomedoalgoritmo
+ * */
 
 int main(){
     char *arq[] = {"../rand_files/100.txt", "../rand_files/1_000.txt", "../rand_files/10_000.txt", "../rand_files/100_000.txt", "../rand_files/1_000_000.txt"};

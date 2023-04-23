@@ -22,7 +22,7 @@ printf("CountSort\n-------------------\nSorting...");
     for(int i = 0; i < 5; i++){
       int *v = leArquivo(arq[i], &Tamanho);
       countSort(v, (int) pow(10, (2 + i)),&trc, &cmp);
-      imprimeArquivo(vets[i],(int) pow(10, (2+i)), v);
+      imprimeArquivo(vets[i],Tamanho, v);
       fprintf(m, "%d elementos\n", (int) pow(10, (2 + i)));
       fprintf(m,"Trocas: %d\n", trc);
       fprintf(m, "Comparações: %d\n", cmp);

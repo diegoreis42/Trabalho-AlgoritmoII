@@ -204,7 +204,7 @@ void countSort(int arr[], int n, int *trc, int *cmp){
 
     // acha o maior elemento do vetor
     for (i = 1; i < n; i++) {
-        cmp += 1;
+        *cmp += 1;
         if (arr[i] > max) {
             max = arr[i];
         }
@@ -226,7 +226,7 @@ void countSort(int arr[], int n, int *trc, int *cmp){
 
     // Cria o array ordenado
     for (i = n-1; i >= 0; i--) {
-        trc += 1;        
+        *trc += 1;        
         sorted_arr[count_arr[arr[i]]-1] = arr[i];
         count_arr[arr[i]]--;
     }
